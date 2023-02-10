@@ -1,4 +1,4 @@
-RSpec.describe 'Forecast Method' do
+RSpec.describe 'Current Method' do
   describe 'passing params' do 
     before do 
       client = Maju::Client.new( api_token: ENV['API_OPENWEATHER_TOKEN'] )

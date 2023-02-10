@@ -19,7 +19,7 @@ module Maju
 		def current(params)
 		  Maju::Errors.city_geocode_blank if params[:city].nil? && params[:lat].nil?
 		
-			url = api_url_current + parsed_params(params)
+			url = api_url_current(params)
 			response = RestClient.get(url, headers)
 			json(response)
 		end
@@ -28,31 +28,9 @@ module Maju
 		def forecast(params)
 		  Maju::Errors.city_geocode_blank if params[:city].nil? && params[:lat].nil?
 
-			url = api_url_forecast + parsed_params(params)
+			url = api_url_forecast(params)
 			response = RestClient.get(url, headers)
 			json(response)
-		end
-
-		private
-		def parsed_params(params)
-			"?lang=#{@lang}&units=#{@unit}&q=#{params[:city]}&appid=#{@token}"
-		end
-
-		def validated_params
-
-		end
-
-		def check_metric(metric)
-			case metric.downcase
-			when 'celsius'
-				'metric'
-			when	'fahrenheit'
-				'imperial'
-			when 'Kelvin'
-				'standard'
-			else
-				'metric'
-			end
 		end
 	end
 end
