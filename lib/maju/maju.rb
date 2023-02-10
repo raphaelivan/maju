@@ -1,11 +1,13 @@
-require_relative 'open_weather_helper'
 require 'rest-client'
+require_relative 'support/helpers'
+require_relative 'support/error'
 
 module Maju
-	class Client
+	class Client		
+		include Maju::Helpers
+
 		attr_accessor :token, :lang, :unit
 
-		include OpenWeatherHelper
 		def initialize(options)
 			@token   = options[:api_token]
 			@lang = options[:lang] ? options[:lang] : 'en'
@@ -15,8 +17,18 @@ module Maju
 		end
 
 		def current(params)
+		  Maju::Errors.city_geocode_blank if params[:city].nil? && params[:lat].nil?
+		
 			url = api_url_current + parsed_params(params)
+			response = RestClient.get(url, headers)
+			json(response)
+		end
 
+
+		def forecast(params)
+		  Maju::Errors.city_geocode_blank if params[:city].nil? && params[:lat].nil?
+
+			url = api_url_forecast + parsed_params(params)
 			response = RestClient.get(url, headers)
 			json(response)
 		end
@@ -44,7 +56,3 @@ module Maju
 		end
 	end
 end
-
-# Usage
-# openweather = Maju::Client.new( unit: 'Celsius', lang: 'pt_br', api_token: "ba225ce2ecbd1c35f2f4204108023a66" )
-# openweather.current(city: '' )

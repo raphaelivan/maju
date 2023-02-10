@@ -1,6 +1,5 @@
 require_relative "maju/version"
-require_relative 'maju/openweather'
+require_relative 'maju/maju'
 
 module Maju
-  class Error < StandardError; end
 end

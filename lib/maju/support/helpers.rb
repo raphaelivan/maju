@@ -1,10 +1,6 @@
-require_relative 'helpers'
-require_relative 'error'
+require 'json'
 
-module OpenWeatherHelper
-	include Maju::Helper
-
-
+module Maju::Helpers
 	def api_url_base
 		"https://api.openweathermap.org"
 	end
@@ -13,7 +9,15 @@ module OpenWeatherHelper
 		"#{api_url_base}/data/2.5/weather?"
 	end
 
+	def api_url_forecast
+		"#{api_url_base}/data/2.5/forecast?"
+	end
+
 	def headers
 		{}
 	end	
+
+	def json(json)
+		JSON.parse(json)
+	end
 end
