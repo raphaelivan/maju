@@ -10,8 +10,10 @@ module Maju::Helpers
 	end
 
 	def api_url_forecast(params)
+		days_count = (params[:days_count] && params[:days_count] <= 15) ? params[:days_count] : 15
+		
 		url = "#{api_url_base}/data/2.5/forecast" + parsed_params(params)
-		url +="&cnt=#{params[:days_count]}" if params && params[:days_count]
+		url +="&cnt=#{days_count}" if params && params[:days_count]
 		url
 	end
 

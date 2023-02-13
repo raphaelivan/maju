@@ -1,5 +1,5 @@
 RSpec.describe 'Forecast Method' do
-  describe 'passing params' do 
+  describe 'passing valids params' do 
     before do 
       client = Maju::Client.new( api_token: ENV['API_OPENWEATHER_TOKEN'] )
     end
@@ -17,12 +17,18 @@ RSpec.describe 'Forecast Method' do
     end
   end
 
-  describe 'no passing params' do 
+  describe 'passing invalids params' do 
     it 'should returns a message asking a city' do 
       client = Maju::Client.new( api_token: ENV['API_OPENWEATHER_TOKEN'] )
      expect {
           client.forecast({ city: nil })
       }.to raise_error(RuntimeError)
+    end
+
+    it 'should returns 15 days if days_count greather 15' do 
+      client = Maju::Client.new( api_token: ENV['API_OPENWEATHER_TOKEN'] )
+      response = client.forecast({ days_count: 20, city: 'Mococa' })
+      expect(response['list'].length).to eq(15)
     end
 
     it 'should returns a message asking a geocode(lat, long)' do 
