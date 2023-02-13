@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Get weather informations from OpenWeather"
   spec.description = "Get weather information directly from the console or easily integrate your application with OpenWeather"
-  spec.homepage = "https://rubygems.org/gems/maju"
+  spec.homepage = "https://github.com/raphaelivan/maju"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
