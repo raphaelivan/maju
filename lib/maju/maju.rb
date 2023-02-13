@@ -32,5 +32,14 @@ module Maju
 			response = RestClient.get(url, headers)
 			json(response)
 		end
+
+
+		def geocode(params)
+		  Maju::Errors.city_name_blank if params[:city].nil? or params[:city].to_s.empty?
+
+			url = api_url_geocode(params)
+			response = RestClient.get(url, headers)
+			json(response).count > 1 ? json(response) : json(response).first
+		end
 	end
 end

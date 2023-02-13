@@ -7,4 +7,8 @@ module Maju::Errors
   def self.city_geocode_blank
     raise "Provider city or lat log params. Use: {city: 'Mococa', lat: 'xxxxx', long: 'xxxxxx'} "
   end
+
+  def self.city_name_blank
+    raise "Provider the city name. Use: {city: 'Mococa' } "
+  end
 end

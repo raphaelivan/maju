@@ -11,9 +11,15 @@ module Maju::Helpers
 
 	def api_url_forecast(params)
 		days_count = (params[:days_count] && params[:days_count] <= 15) ? params[:days_count] : 15
-		
+
 		url = "#{api_url_base}/data/2.5/forecast" + parsed_params(params)
 		url +="&cnt=#{days_count}" if params && params[:days_count]
+		url
+	end
+
+
+	def api_url_geocode(params)
+		url = "#{api_url_base}/geo/1.0/direct" + parsed_params(params)
 		url
 	end
 
@@ -22,7 +28,11 @@ module Maju::Helpers
 	end	
 
 	def parsed_params(params)
-		"?lang=#{@lang}&units=#{@unit}&q=#{params[:city]}&appid=#{@token}"
+		if params[:city]
+			"?lang=#{@lang}&units=#{@unit}&q=#{params[:city]}&appid=#{@token}"
+		else
+			"?lang=#{@lang}&units=#{@unit}&appid=#{@token}&lat=#{params[:lat]}&lon=#{params[:long]}"
+		end
 	end
 
 	def json(json)

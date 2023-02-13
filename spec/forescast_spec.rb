@@ -10,6 +10,12 @@ RSpec.describe 'Forecast Method' do
       expect(response['cnt']).to be > 0
     end
 
+    it 'should returns 200 when pass a lat and long' do 
+      client = Maju::Client.new( api_token: ENV['API_OPENWEATHER_TOKEN'] )
+      response = client.forecast({ lat: '-21.2049202', long: '-47.0943532'})
+      expect(response['cnt']).to be > 0
+    end
+
     it 'should returns 2 timestamps when pass a days_count' do 
       client = Maju::Client.new( api_token: ENV['API_OPENWEATHER_TOKEN'] )
       response = client.forecast({ days_count: 2, city: 'Mococa' })
