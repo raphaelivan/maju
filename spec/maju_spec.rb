@@ -13,8 +13,7 @@ RSpec.describe Maju do
     end
 
 
-    it "raise error if don't pass api_token params" do
-      t = 'xxxxxxxxx'
+    it "raise error if don't pass api_token params" do      
       expect {
         maju = Maju::Client.new({})
       }.to raise_error(RuntimeError)
